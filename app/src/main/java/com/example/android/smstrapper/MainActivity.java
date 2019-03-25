@@ -2,21 +2,13 @@ package com.example.android.smstrapper;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,23 +33,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-
-        //Declare the timer
-        Timer t = new Timer();
-//Set the schedule function and rate
-        t.scheduleAtFixedRate(new TimerTask() {
-                                  int str = 5;
-                                  @Override
-                                  public void run() {
-                                      //Called each time when 1000 milliseconds (1 second) (the period parameter)
-
-                                  }
-
-                              },
-//Set how long before to start calling the TimerTask (in milliseconds)
-                0,
-//Set the amount of time between each execution (in milliseconds)
-                1000);
     }//onCreate
 
     //after getting the result of permission requests the result will be passed through this method
@@ -75,5 +50,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void button(View view) {
+        TextView myTextView = (TextView) findViewById(R.id.textView);
+        myTextView.setText(MyReceiver.msg);
     }
 }
