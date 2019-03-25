@@ -2,6 +2,8 @@ package com.example.android.smstrapper;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -10,16 +12,17 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MainActivity extends AppCompatActivity {
 
     //Here in MainActivity we will write code for asking permission
     private static final int MY_PERMISSIONS_REQUEST_RECEIVE_SMS = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 
         //check if the permission is not granted
@@ -33,7 +36,26 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-    }//onCreate
+//Declare the timer
+        Timer t = new Timer();
+//Set the schedule function and rate
+        t.scheduleAtFixedRate( new TimerTask() {
+            private Handler updateUI = new Handler(){
+                @Override
+                public void dispatchMessage(Message msg) {
+                    super.dispatchMessage(msg);
+                    Toast.makeText(MainActivity.this, "refreshing...", Toast.LENGTH_SHORT).show();
+                    TextView myTextView = (TextView) findViewById(R.id.textView);
+                    myTextView.setText(MyReceiver.msg);
+                }
+            };
+            public void run() {
+                try {
+                    updateUI.sendEmptyMessage(0);
+                } catch (Exception e) {e.printStackTrace(); }
+            }
+        }, 2000,5000);
+    }
 
     //after getting the result of permission requests the result will be passed through this method
     @Override
@@ -52,8 +74,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void button(View view) {
-        TextView myTextView = (TextView) findViewById(R.id.textView);
-        myTextView.setText(MyReceiver.msg);
-    }
 }

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+    android:background="#29B6F6"
     tools:showIn="@layout/activity_main">
 
     <TextView
@@ -12,16 +13,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="34sp"
-        android:text="Hello World!"
+        android:text="Your SMS will display here!! "
+        android:padding="20dp"
+        android:gravity="center"
         android:layout_centerInParent="true"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="@dimen/fab_margin"
-        android:onClick="button"
-        tools:background="@android:drawable/ic_menu_rotate" />
+
 
 </RelativeLayout>
