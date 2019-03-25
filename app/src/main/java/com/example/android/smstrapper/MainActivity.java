@@ -19,11 +19,18 @@ public class MainActivity extends AppCompatActivity {
 
     //Here in MainActivity we will write code for asking permission
     private static final int MY_PERMISSIONS_REQUEST_RECEIVE_SMS = 0;
+    boolean noMatchCondition;
+    String[] nolist = {
+            "8587975309",
+            "9891708986",
+            "5987565655",
+            "123456879",
+            "321654897"
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         //check if the permission is not granted
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
@@ -45,8 +52,16 @@ public class MainActivity extends AppCompatActivity {
                 public void dispatchMessage(Message msg) {
                     super.dispatchMessage(msg);
                     Toast.makeText(MainActivity.this, "refreshing...", Toast.LENGTH_SHORT).show();
-                    TextView myTextView = (TextView) findViewById(R.id.textView);
-                    myTextView.setText(MyReceiver.msg);
+
+                    for (int b = 0; b < 5; b++) {
+                        if (nolist[b].equals(MyReceiver.phoneNo)) {
+                            noMatchCondition = true;
+                        }
+                    }
+                    if (noMatchCondition==true){
+                        TextView myTextView = (TextView) findViewById(R.id.textView);
+                        myTextView.setText(MyReceiver.msg);
+                    }
                 }
             };
             public void run() {
